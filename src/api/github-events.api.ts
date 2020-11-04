@@ -11,6 +11,55 @@ export function useGithubIssueComments() {
 }
 
 export function mapResult(data: GithubEvent[]): GithubIssue[] {
+
+    let commentEvents = data.filter(GithubEvent => GithubEvent.type === "IssueCommentEvent");
+
+    let githubIssues: Array<GithubIssue> = []
+
+    const handleIssues = (event: GithubEvent) => {
+        for(let i=0; i<githubIssues.length; i++ ) {
+            if(githubIssues[i].id === event.payload.issue.id) {
+                githubIssues[i].comments = [
+                    ...githubIssues[i].comments,
+                    {
+                        id: event.payload.comment.id,
+                        created_at: event.payload.comment.created_at,
+                        body: event.payload.comment.body,
+                        user: {
+                            id: event.payload.comment.user.id,
+                            login: event.payload.comment.user.login,
+                        }
+                    }
+                ]
+                return true
+            }
+        }
+        githubIssues.push({
+            id: event.payload.issue.id,
+            created_at: event.payload.issue.created_at,
+            title: event.payload.issue.title,
+            body: event.payload.issue.body,
+            user: {
+                id: event.payload.issue.user.id,
+                login: event.payload.issue.user.login,
+            },
+            comments: [
+                {
+                    id: event.payload.comment.id,
+                    created_at: event.payload.comment.created_at,
+                    body: event.payload.comment.body,
+                    user: {
+                        id: event.payload.comment.user.id,
+                        login: event.payload.comment.user.login,
+                    },
+                }
+            ]
+        })
+    }
+
+    commentEvents.map(handleIssues);
+
+    return githubIssues
     // TODO:
     //   1. Remove the hardcoded data below
     //   2. Transform the GithubEvent[] data passed in as a parameter, to the expected GithubIssue[] return type
