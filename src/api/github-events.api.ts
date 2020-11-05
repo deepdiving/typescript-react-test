@@ -2,12 +2,14 @@ import {GithubEvent, GithubIssue} from "./github-events.model";
 import axios from "axios";
 import {useQuery} from "react-query";
 
-export function useGithubIssueComments() {
-    const url = `/networks/microsoft/TypeScript/events?per_page=100`
+export function useGithubIssueComments(props: {user: string, repo: string}) {
+    const url = `/networks/${props.user}/${props.repo}/events?per_page=100`
 
     return useQuery<GithubIssue[], Error>(url, () =>
         axios.get(url).then((res) => mapResult(res.data))
-    )
+    , {
+        enabled: false
+    })
 }
 
 export function mapResult(data: GithubEvent[]): GithubIssue[] {
