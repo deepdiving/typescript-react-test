@@ -57,6 +57,60 @@ export const button = styled.button`
     box-shadow: 0 0 16px -8px rgb(35, 181, 181, 0.35);
 `
 
+export const issuer_area = styled.div`
+    overflow: hidden;
+    transition: all 0.5s;
+    &.collapsed {
+        height: 200px;
+    }
+`
+
+export const collapsed_area = styled.div`
+    height: 80px;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 -32px 32px -32px rgb(10, 35, 92, 0.35);
+    
+`
+export const collapsed_action = styled.div`
+    height: 32px;
+    font-size: 12px;
+    line-height: 24px;
+    font-weight: 500;
+    color: #23B5B5;
+    cursor: pointer;
+    width: 200px;
+    display: block !important;
+    border-radius: 16px !important;
+    background-color: #ffffff !important;
+    margin: 0 auto -25px auto;
+    position: relative;
+    text-align: center;
+    padding: 3px;
+`
+
+export const collapse_div = styled.div`
+    height: 80px;
+    width: 100%;
+    background-color: white;
+`
+
+export const collapse_btn = styled.a`
+    font-size: 12px;
+    line-height: 24px;
+    font-weight: 500;
+    color: #23B5B5;
+    cursor: pointer;
+    width: 200px;
+    text-align: center;
+    display: block;
+    margin: 30px auto;
+    &:hover {
+        text-decoration: none;
+        color: #23B5B5;
+    }
+`
+
 export const issuer_title = styled.div`
   font-size: 24px;
   line-height: 32px;
